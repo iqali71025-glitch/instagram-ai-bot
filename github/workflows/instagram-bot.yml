@@ -1,0 +1,51 @@
+name: 🚀 Instagram AI Bot
+
+on:
+  schedule:
+    # توقيت السعودية (UTC+3)
+    - cron: '0 6 * * *'    # 9:00 ص - رييل الصباح
+    - cron: '0 12 * * *'   # 3:00 م - رييل الظهر
+    - cron: '0 18 * * *'   # 9:00 م - رييل المساء
+    - cron: '30 7 * * *'   # 10:30 ص - ستوري
+    - cron: '30 10 * * *'  # 1:30 م - ستوري
+    - cron: '30 13 * * *'  # 4:30 م - ستوري
+    - cron: '30 16 * * *'  # 7:30 م - ستوري
+    - cron: '30 20 * * *'  # 11:30 م - ستوري
+
+  workflow_dispatch:  # تشغيل يدوي
+  push:               # تشغيل عند التحديث
+
+jobs:
+  execute-bot:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 تحميل الكود
+      uses: actions/checkout@v4
+
+    - name: 🐍 إعداد Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: 📦 تثبيت المتطلبات
+      run: |
+        pip install -r requirements.txt
+
+    - name: 🎯 تشغيل البوت
+      id: run-bot
+      run: |
+        python instagram_bot.py
+
+    - name: 💾 حفظ النتائج
+      if: always()
+      run: |
+        echo "التشغيل في: $(date)" >> results.txt
+        echo "الحالة: ${{ job.status }}" >> results.txt
+        echo "---" >> results.txt
+
+    - name: 📤 رفع النتائج
+      uses: actions/upload-artifact@v4
+      with:
+        name: bot-execution-results
+        path: results.txt
+        retention-days: 7
