@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "timezone": "Asia/Riyadh",
+    "daily_reels": 3,
+    "daily_stories": 5,
+    "success_rate": 85
+  },
+  "content_categories": [
+    "ميمز",
+    "نصيحة", 
+    "سؤال",
+    "تحدي",
+    "اقتباس"
+  ]
+}
