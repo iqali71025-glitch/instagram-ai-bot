@@ -67,7 +67,7 @@ class InstagramAIBot:
         # توليد هاشتاقات ذكية
         base_tags = self.hashtags_library['عام']
         type_tags = self.hashtags_library.get(content_type, [])
-        local_tags = self.hashtags_library['محli']
+        local_tags = self.hashtags_library['محلي']
         
         all_tags = base_tags + type_tags + local_tags
         selected_tags = ' '.join(random.sample(all_tags, min(8, len(all_tags))))
